@@ -6,6 +6,10 @@ import { DatabaseModule } from '../database/database.module'
 import { CryptographyModule } from '../cryptography/cryptography.module'
 import { RegisterSellerUseCase } from '@/domain/marketplace/application/use-cases/register-seller'
 import { AuthenticateSellerUseCase } from '@/domain/marketplace/application/use-cases/authenticate-seller'
+import { GetSellerProfileController } from './controllers/get-seller-profile.controller'
+import { GetSellerProfileUseCase } from '@/domain/marketplace/application/use-cases/get-seller-profile'
+import { EditSellerController } from './controllers/edit-seller.controller'
+import { EditSellerUseCase } from '@/domain/marketplace/application/use-cases/edit-seller'
 import { RegisterProductViewUseCase } from '@/domain/marketplace/application/use-cases/register-product-view'
 import { UploadAttachmenstController } from './controllers/upload-attachments.controller'
 import { StorageModule } from '../storage/storage.module'
@@ -18,6 +22,8 @@ import { SignOutController } from './controllers/sign-out.controller'
   imports: [DatabaseModule, CryptographyModule, StorageModule],
   controllers: [
     RegisterSellerController,
+    EditSellerController,
+    GetSellerProfileController,
     AuthenticateSellerController,
     UploadAttachmenstController,
     GetAttachmentContentController,
@@ -25,6 +31,8 @@ import { SignOutController } from './controllers/sign-out.controller'
   ],
   providers: [
     RegisterSellerUseCase,
+    EditSellerUseCase,
+    GetSellerProfileUseCase,
     AuthenticateSellerUseCase,
     RegisterProductViewUseCase,
     UploadAndCreateAttachmentUseCase,
