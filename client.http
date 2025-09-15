@@ -1,0 +1,199 @@
+@baseUrl = http://localhost:3333
+@authToken = {{authenticate_seller.response.body.accessToken}}
+
+###
+
+# @name register_seller
+POST {{baseUrl}}/sellers
+Content-Type: application/json
+
+{
+	"name": "Teste 6",
+  "phone": "1234567896",
+	"email": "teste6@teste.com.br",
+  "avatarId": "f79af8e2-6496-443f-ad06-e8df7c967989",
+	"password": "123456",
+  "passwordConfirmation": "123456"  
+}
+
+###
+
+# @name edit_seller
+PUT {{baseUrl}}/sellers
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+{
+	"name": "Teste 1 edited",
+  "phone": "0123456789",
+	"email": "edited@teste.com.br",
+  "avatarId": "56ac1682-9971-482c-a4c0-3ed099289b1d"
+}
+
+###
+
+# @name get_seller_profile
+GET {{baseUrl}}/sellers/me
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name count_products_sold_by_seller_in_last_30_days
+GET {{baseUrl}}/sellers/metrics/products/sold
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name count_products_available_by_seller_in_last_30_days
+GET {{baseUrl}}/sellers/metrics/products/available
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name count_seller_views_in_last_30_days
+GET {{baseUrl}}/sellers/metrics/views
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name count_seller_views_per_day_in_last_30_days
+GET {{baseUrl}}/sellers/metrics/views/days
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name count_product_views_in_last_7_days
+GET {{baseUrl}}/products/3dff971c-970d-4502-944f-37414abbb6ea/metrics/views
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name authenticate_seller
+POST {{baseUrl}}/sellers/sessions
+Content-Type: application/json
+
+{
+	"email": "teste1@teste.com.br",
+	"password": "123456"
+}
+
+###
+
+# @name sign_out
+POST {{baseUrl}}/sign-out
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name fetch_product_by_owner
+GET {{baseUrl}}/products/me
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name create_product
+POST {{baseUrl}}/products
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+{
+  "title": "Product 2",
+  "description": "A detailed product 2 description",
+  "priceInCents": 2000,
+  "categoryId": "0d5e54b4-ac6d-47e6-957b-3e12af76bc34",
+  "attachmentsIds": ["6062d353-7510-461c-99bd-e612806afc36", "255c7457-9c56-41a8-ab19-7eb6a3719e65"]
+}
+
+###
+
+# @name fetch_all_products
+GET {{baseUrl}}/products/?page=2
+Content-Type: application/json
+
+###
+
+# @name get_product_by_id
+GET {{baseUrl}}/products/b2203399-ed4f-49ef-9337-f9e12eff7cb4
+Content-Type: application/json
+
+###
+
+# @name edit_product
+PUT {{baseUrl}}/products/a2a0d302-8a04-4b7e-88da-118e4a59c3ab
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+{
+  "title": "Edited product",
+  "description": "Edited description",
+  "priceInCents": 1234,
+  "categoryId": "92b7b838-5a9b-40e7-8171-2eadbc5c6b4b",
+  "attachmentsIds": ["6b06c1e5-76ad-456b-a2f0-3d0eb934bf7c", "e9d75b12-da43-492f-b63f-8161eadc602f"]
+}
+
+###
+
+# @name change_product_status
+PATCH {{baseUrl}}/products/a2a0d302-8a04-4b7e-88da-118e4a59c3ab/sold
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name register_product_view
+POST {{baseUrl}}/products/e4681f0d-d37f-4a7e-bf32-0fadbaf78853/views
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+###
+
+# @name fetch_all_categories
+GET {{baseUrl}}/categories
+Content-Type: application/json
+
+###
+
+# @name create_category
+POST {{baseUrl}}/categories
+Content-Type: application/json
+Cookie: accessToken={{authToken}}
+
+{
+  "title": "Category 2"
+}
+
+###
+
+# @name upload_attachments
+POST {{baseUrl}}/attachments
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="files"; filename="sample-attachment.png"
+Content-Type: image/png
+
+< ./test/e2e/sample-attachment.png
+--boundary
+Content-Disposition: form-data; name="files"; filename="sample-attachment.png"
+Content-Type: image/png
+
+< ./test/e2e/sample-attachment.png
+--boundary
+Content-Disposition: form-data; name="files"; filename="sample-attachment.png"
+Content-Type: image/png
+
+< ./test/e2e/sample-attachment.png
+--boundary--
+
+###
+
+# @name get_attachment_content
+GET {{baseUrl}}/attachments/4a606326-ddba-4c9e-ab4d-66005afa434b-sample-attachment.png
+Cookie: accessToken={{authToken}}
